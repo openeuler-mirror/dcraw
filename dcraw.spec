@@ -1,13 +1,13 @@
 Summary:             Tool for decoding raw image data from digital cameras
 Name:                dcraw
 Version:             9.28.0
-Release:             6
+Release:             7
 License:             GPLv2+
 URL:                 http://cybercom.net/~dcoffin/dcraw
 Source0:             https://sources.voidlinux.org/dcraw-%{version}/dcraw-%{version}.tar.gz
 Patch0:              dcraw-CVE-2018-5801.patch
 Patch1:              dcraw-9.21-lcms2-error-reporting.patch
-BuildRequires:       gcc gettext libjpeg-devel lcms2-devel 
+BuildRequires:       gcc gettext libjpeg-devel lcms2-devel
 Provides:            bundled(dcraw)
 %description
 This package contains dcraw, a command line tool to decode raw image data
@@ -23,7 +23,7 @@ Requires:            dcraw = %{version}-%{release}
 %description         help
 
 %build
-gcc %optflags $RPM_LD_FLAGS -lm -ljpeg -llcms2 -DNO_JASPER \
+$CC %optflags $RPM_LD_FLAGS -lm -ljpeg -llcms2 -DNO_JASPER \
     -DLOCALEDIR="\"%{_datadir}/locale\"" -o dcraw dcraw.c
 for catsrc in dcraw_*.po; do
     lang="${catsrc%.po}"
@@ -59,6 +59,9 @@ done
 %{_mandir}/man1/*
 
 %changelog
+* Fri Apr 14 2023 jammyjellyfish <jammyjellyfish255@outlook.com> - 9.28.0-7
+- Support specify CC
+
 * Fri Jul 30 2021 chenyanpanHW <chenyanpan@huawei.com> - 9.28.0-6
 - DESC: delete -S git from %autosetup, and delete BuildRequires git
 
